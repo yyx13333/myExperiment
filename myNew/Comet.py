@@ -4,16 +4,17 @@ from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, AutoConfig
 
 
 if __name__ == "__main__":
-    config = AutoConfig.from_pretrained("../comet/config.json")
-    model = AutoModelForSeq2SeqLM.from_pretrained("../comet/pytorch_model.bin", config=config)
-    tokenizer = AutoTokenizer.from_pretrained("../comet/",
-                                              config="../comet/tokenizer_config.json",
-                                              vocab_file="../comet/vocab.json")
+    config = AutoConfig.from_pretrained("../../comet/config.json")
+    model = AutoModelForSeq2SeqLM.from_pretrained("../../comet/pytorch_model.bin", config=config)
+    tokenizer = AutoTokenizer.from_pretrained("../../comet/",
+                                              config="../../comet/tokenizer_config.json",
+                                              vocab_file="../../comet/vocab.json")
 
     # 准备输入文本
-    input_text2 = "{The blake's got divorced oReact [GEN]"
+    input_text2 = "{你真好 [GEN] oReact"
     # 使用tokenizer对输入文本进行编码
     input_ids = tokenizer(input_text2, return_tensors="pt", truncation=True, padding="max_length").input_ids
+    print(input_ids.shape)
     relation_set = ["oEffect", "oReact", "xEffect", "xReact"]
     summaries = model.generate(
         input_ids=input_ids, max_length=100, num_beams=6, early_stopping=True, num_return_sequences=6

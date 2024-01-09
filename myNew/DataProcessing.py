@@ -30,11 +30,11 @@ with open('../data/CPED/train_split.csv', encoding='utf-8') as file:
                 SpeakerB = row[3]
             # --------------判断当前说话者是A还是B----------------
             if SpeakerA == row[3]:
-                newRow.append("A")
+                newRow.append(SpeakerA)
             elif SpeakerB == row[3]:
-                newRow.append("B")
+                newRow.append(SpeakerB)
             else:
-                newRow.append("C")
+                newRow.append(row[3])
             # ------------------对话轮次赋值----------------
             count = count + 1
             newRow.append(count)
